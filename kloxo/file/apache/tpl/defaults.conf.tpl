@@ -54,6 +54,11 @@ if ($setdefaults === 'ssl') {
 
 <Virtualhost <?php echo $ip; ?>:<?php echo $ports[1]; ?>>
 
+	<IfModule mod_headers.c>
+		## MR -- ref: https://www.howtoforge.com/tutorial/httpoxy-protect-your-server/
+		RequestHeader unset Proxy early
+	</IfModule>
+
 	SSLEngine On
 	SSLCertificateFile <?php echo $hkhpath; ?>/ssl/<?php echo $certname; ?>.crt
 	SSLCertificateKeyFile <?php echo $hkhpath; ?>/ssl/<?php echo $certname; ?>.key
@@ -103,6 +108,11 @@ Listen <?php echo $ip; ?>:<?php echo $ports[1]; ?>
 
 ### '<?php echo $setdefaults; ?>' config
 <VirtualHost <?php echo $ip; ?>:<?php echo $port; ?>>
+
+	<IfModule mod_headers.c>
+		## MR -- ref: https://www.howtoforge.com/tutorial/httpoxy-protect-your-server/
+		RequestHeader unset Proxy early
+	</IfModule>
 
 	SetEnvIf X-Forwarded-Proto https HTTPS=1
 

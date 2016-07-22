@@ -33,6 +33,18 @@ FastCGIserver {
 
 MimetypeConfig = hiawatha-mimetype.conf
 
+UrlToolkit {
+	ToolkitID = block_shellshock
+	#Header * \(\)\s*\{ DenyAccess
+	Header User-Agent \(\)\s*\{ DenyAccess
+	Header Referer \(\)\s*\{ DenyAccess
+}
+
+UrlToolkit {
+	ToolkitID = block_httpoxy
+	Header Proxy .* DenyAccess
+}
+
 Binding {
 	BindingId = port_nonssl
 	Port = __nonssl_port__
@@ -63,6 +75,8 @@ ErrorLogfile = /usr/local/lxlabs/kloxo/log/hiawatha-error.log
 
 UseFastCGI = PHP5
 
+UseToolkit = block_shellshock, block_httpoxy
+
 TimeForCGI = 3600
 ErrorHandler = 401:/error/401.html
 ErrorHandler = 403:/error/403.html
@@ -84,6 +98,8 @@ VirtualHost {
 	## MR -- disable this UseFastCGI with # in front and create blank '/usr/local/lxlabs/kloxo/init/kloxo_use_php-cgi' file
 	## if want use php-cgi without spawn-fcgi (less memory usage)
 	UseFastCGI = PHP5
+
+	UseToolkit = block_shellshock, block_httpoxy
 
 	TimeForCGI = 3600
 	ErrorHandler = 401:/error/401.html

@@ -54,6 +54,10 @@ if ($setdefaults === 'ssl') {
 	foreach ($certnamelist as $ip => $certname) {
 ?>
 
+## MR -- ref: https://www.kb.cert.org/vuls/id/JLAD-ABZJ3A
+#server.modules += ( "mod_magnet" )
+magnet.attract-raw-url-to = ( "/home/lighttpd/conf/globals/deny-proxy.lua" )
+
 $SERVER["socket"] == "<?php echo $ip; ?>:<?php echo $ports[1]; ?>" {
 
 	ssl.engine = "enable"
