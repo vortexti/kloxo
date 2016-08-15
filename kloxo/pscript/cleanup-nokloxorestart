@@ -11,6 +11,14 @@ fi
 
 T="$(date +%s%N)"
 
+if [ "$(cat /etc/yum.conf|grep 'exclude=')" != "" ] ; then
+	if [ "$(cat /etc/yum.conf|grep 'dovecot*')" == "" ] ; then
+		sed -i 's/\(exclude\=\)\(.*\)/\1\ dovecot\*/' /etc/yum.conf
+	fi
+else
+	echo 'exclude=mysql51* mysql56* MariaDB* dovecot*' >> /etc/yum.conf
+fi
+
 if rpm -qa|grep mysql55 >/dev/null 2>&1 ; then
 	echo "Already use mysql55. No replace"
 else

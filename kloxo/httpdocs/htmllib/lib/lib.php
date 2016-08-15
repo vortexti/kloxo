@@ -7570,10 +7570,6 @@ function setPhpBranch($select, $nolog = null)
 
 	$phpbranch = getRpmBranchInstalled('php');
 
-	if ($phpmodules[0] === $phpbranch) {
-		unset($phpmodules[0]);
-	}
-
 	if ($select === $phpbranch) {
 		log_cleanup("-- It's the same branch ({$select}); no changed", $nolog);
 		return null;
@@ -7594,11 +7590,16 @@ function setPhpBranch($select, $nolog = null)
 		log_cleanup("-- Replace using 'yum replace {$phpbranch} --replace-with={$select}'", $nolog);
 		setRpmReplaced($phpbranch, $select);
 
+	/*
 		if ($phpmodules[0] === $phpbranch) {
 			unset($phpmodules[0]);
 		}
-
+	*/
 		foreach ($phpmodules as $k => $v) {
+			if ($phpmodules[0] === $phpbranch) {
+				continue;
+			}
+
 			$t = str_replace("{$phpbranch}-", "{$select}-", $v);
 
 			if (!isRpmInstalled($t)) {
