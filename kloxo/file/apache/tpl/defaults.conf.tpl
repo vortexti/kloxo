@@ -136,7 +136,7 @@ Listen <?php echo $ip; ?>:<?php echo $ports[1]; ?>
 <?php
 					if (file_exists("{$hkhpath}/ssl/{$certname}.ca")) {
 ?>
-	SSLCACertificatefile <?php echo $hkhpath; ?>/ssl/<?php echo $certname; ?>.ca
+		SSLCACertificatefile <?php echo $hkhpath; ?>/ssl/<?php echo $certname; ?>.ca
 <?php
 					}
 ?>

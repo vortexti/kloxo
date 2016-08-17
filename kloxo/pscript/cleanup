@@ -11,7 +11,11 @@ if [ "${checktmpfs}" != "" ] ; then
 	exit
 fi
 
-sed -i 's/\(exclude\=\)\(.*\)\(mysql5\*\|mysql5?\*\|MariaDB\*\|dovecot\*\)\(.*\)/\1\4 mysql51\* mysql56\* mysql57\* MariaDB\* dovecot\*/g' /etc/yum.conf
+if [ "$(cat /etc/yum.conf|grep 'exclude=')" != "" ] ; then
+	sed -i 's/\(exclude\=\)\(.*\)\(mysql5\*\|mysql5?\*\|MariaDB\*\|dovecot\*\)\(.*\)/\1\4 mysql51\* mysql56\* mysql57\* MariaDB\* dovecot\*/g' /etc/yum.conf
+else
+	echo "exclude=mysql51* mysql56* mysql57* MariaDB* dovecot*" >> /etc/yum.conf
+fi
 
 T="$(date +%s%N)"
 
