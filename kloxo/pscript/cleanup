@@ -11,16 +11,9 @@ if [ "${checktmpfs}" != "" ] ; then
 	exit
 fi
 
+sed -i 's/\(exclude\=\)\(.*\)\(mysql5\*\|mysql5?\*\|MariaDB\*\|dovecot\*\)\(.*\)/\1\4 mysql51\* mysql56\* mysql57\* MariaDB\* dovecot\*/g' /etc/yum.conf
 
 T="$(date +%s%N)"
-
-if [ "$(cat /etc/yum.conf|grep 'exclude=')" != "" ] ; then
-	if [ "$(cat /etc/yum.conf|grep 'dovecot*')" == "" ] ; then
-		sed -i 's/\(exclude\=\)\(.*\)/\1\ dovecot\*/' /etc/yum.conf
-	fi
-else
-	echo 'exclude=mysql51* mysql56* MariaDB* dovecot*' >> /etc/yum.conf
-fi
 
 if rpm -qa|grep mysql55 >/dev/null 2>&1 ; then
 	echo "Already use mysql55. No replace"
