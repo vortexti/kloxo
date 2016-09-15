@@ -92,7 +92,7 @@ function session_login()
 
 	if (isset($_SESSION['num_login_fail'])) {
 		if($_SESSION['num_login_fail'] == 5) {
-			if(time() - $_SESSION['last_login_time'] < 10*60*60 ) {
+			if((time() - $_SESSION['last_login_time']) < (10*60)) {
 				// alert to user wait for 10 minutes afer
 				$ghtml->print_redirect("/login/?frm_emessage=blocked");
 			} else {
