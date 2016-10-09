@@ -1,6 +1,8 @@
 <?php
 	ini_set("display_errors","1");
 
+	session_start();
+
 	// use default index.php
 	if (!file_exists("./custom-index.php")) {
 ?>
@@ -97,8 +99,8 @@ table.content_title td {
 
 <table class="header">
 	<tr>
-		<td width="100%"><img class="logo" src="./images/logo.png" height="75" alt="hosting-logo"></td>
-		<td><a href="http://mratwork.com/work/" title="Go to Kloxo-MR website"><img class="logo" src="./images/kloxo-mr.png" alt="kloxo-mr-logo" height="75"></a></td>
+		<td width="100%"><img style="margin:5px; padding:5px; height:50px" class="logo" src="./images/logo.png" alt="hosting-logo"></td>
+		<td><a href="http://mratwork.com/work/" title="Go to Kloxo-MR website"><img class="logo" src="./images/kloxo-mr.png" style="margin:5px; padding:5px; height:50px" alt="kloxo-mr-logo"></a></td>
 	</tr>
 </table>
 <table class="content">
@@ -113,8 +115,7 @@ table.content_title td {
 </html>
 
 <?php
-	}
-	else {
+	} else {
 		// use user-define index.php -- no override when kloxo update
 		include_once "./custom-index.php";
 	}

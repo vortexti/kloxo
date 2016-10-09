@@ -34,7 +34,10 @@ $logfo = db_get_value("general", "admin", "login_pre");
 $logfo = str_replace("<%programname%>", $sgbl->__var_program_name, $logfo);
 
 if (!$cgi_forgotpwd) {
-	session_start();
+//	if (session_status() == PHP_SESSION_NONE) {
+	if(!isset($_SESSION)) {
+		session_start();
+	}
 
 	$ghtml->print_message();
 
